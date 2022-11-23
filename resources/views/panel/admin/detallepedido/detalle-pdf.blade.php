@@ -17,19 +17,19 @@
             <div class="col">
                 <h5>Facturar a</h5>
                 <p>
-                    {{ $user->name }}
+                    {{$user->name}}
                 </p>
             </div>
             <div class="col">
                 <h5>Enviar a </h5>
                 <p>
                     Barrio Ciudad Valdiva
-                    {{ $user->email }}
+                    {{$user->email}}
                 </p>
             </div>
             <div class="col">
-                <h5>Factura N*:{{ $venta->id }}</h5>
-                <h5>Fecha : {{ $date }}</h5>
+                <h5>Factura  N*:{{$venta->id}}</h5>
+                <h5>Fecha : {{$date}}</h5>
             </div>
 
 
@@ -46,47 +46,23 @@
                         <th>Numo de pedido</th>
                         <th>Sub Total</th>
                         <th>Comercio</th>
-                        <th>Nom articulo</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($pedidos as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->totalpedido }}</td>
-                            <td>{{ $item->comercio->comercio_nom }}</td>
-
-                            @foreach ($item->detallepedidos as $detalle)
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>{{ $detalle->articulo->articulo_nom }}</td>
-                                <td>{{ $detalle->cantidad }}</td>
-                                <td>
-                                    @if ($detalle->cantidad >= $detalle->articulo->cantidadminima)
-                                        {{ $detalle->articulo->precioxmayor }}
-                                    @else
-                                        {{ $detalle->articulo->precioxmenor }}
-                                    @endif
-                                </td>
-                             </tr>
-                            @endforeach
-                        </tr>
-                    @endforeach
-                <tbody>
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->totalpedido }}</td>
+                        <td>{{ $item->comercio->comercio_nom}}</td>
+                    </tr>
+                @endforeach
+                <tfoot>
                     <tr>
                         <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
                         <th>Total Factura</th>
-                        <th>{{ $venta->total }}</th>
+                        <th>{{$venta->total}}</th>
                     </tr>
-                </tbody>
+                </tfoot>
             </table>
         </div>
 

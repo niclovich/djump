@@ -61,14 +61,14 @@ class VentaController extends Controller
                         } else {
                             DB::rollback();
                             CartFacade::clear();
-                            return redirect()->route('cart.index')->with('alert_msg', 'Error Vuelva a intentar');
+                            return redirect()->route('cart.index')->with('alert_msg', 'Error cantidad no disponible');
                         }
                     }
                 }
             }
             CartFacade::clear();
             DB::commit();
-            return redirect()->route('cart.index')->with('success_msg', 'Pago realizado Realizado');
+            return redirect()->route('cart.index')->with('succes_venta', 'Pago realizado Realizado');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('cart.index')->with('alert_msg', 'Error Vuelva a intentar');
@@ -174,7 +174,7 @@ class VentaController extends Controller
     {
         //
     }
-    public function generatePDF( )
+    public function generatePDF()
     {   
         $user = Auth::user();
         $venta = Venta::where('user_id',$user->id)->latest()->get()->first();
@@ -184,12 +184,43 @@ class VentaController extends Controller
 
         $detalle = Detallepedido::where('pedido_id',$pedidos[0]->id)
         ->join('articulos','detallepedidos.articulo_id','articulos.id')->get();
+        
         $data = [
             'title' => 'Factura',
             'date' => date('m/d/Y'),
             'user' => $user,
             'venta'=>$venta,
             'pedidos'=>$pedidos
+        ];
+
+        $pdf = FacadePdf::loadView('panel.admin.pedidos.pedidos-pdf', $data);
+
+        return $pdf->download('Factura.pdf');
+    }
+    public function generatePDF2(Venta $venta)
+    {   
+        $venta->load('user');
+        $user = $venta->user;
+        $pedidos=Pedido::where('venta_id',$venta->id)->get();
+        $detalle=[];
+        $pedidos->load('detallepedidos');
+        //$pedidos->detallepedidos;
+         //$pedidos[0]->detallepedidos[0]->load('articulo');
+         //$pedidos[0]->detallepedidos[1]->load('articulo');
+         //$pedidos[1]->detallepedidos[0]->load('articulo');
+
+         foreach ($pedidos  as $detallepedios) {
+            $detallepedios->detallepedidos->load('articulo');
+         }
+
+            
+        $data = [
+            'title' => 'Factura',
+            'date' => date('m/d/Y'),
+            'user' => $user,
+            'venta'=>$venta,
+            'pedidos'=>$pedidos,
+            'detalle'=>$detalle
         ];
 
         $pdf = FacadePdf::loadView('panel.admin.pedidos.pedidos-pdf', $data);

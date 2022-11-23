@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class PedidoController extends Controller
+
 {
+    
     public function armarpedido()
     {
         $user = Auth::user();

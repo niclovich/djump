@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ComercioSeeder::class);
         //Comercio::factory(10)->create();
         $this->call(ArticuloSeeder::class);
-        $this->call(VentaSeeder::class);
-        $this->call(PedidoSeeder::class);
-        $this->call(DetallepedidoSeeder::class);
+       // $this->call(VentaSeeder::class);
+        //$this->call(PedidoSeeder::class);
+        //$this->call(DetallepedidoSeeder::class);
 
     }
 }

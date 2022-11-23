@@ -20,7 +20,7 @@
 
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
                                     class="form-control-label px-3">categoria <span class="text-danger"> *</span></label>
-                                <select id="categoria_articulo" name="categoria_articulo">
+                                <select id="categoria_id" name="categoria_id">
                                     @foreach ($categorias as $item)
                                         @if ($item->id == $articulo->categoria_id)
                                             <option value="{{ $item->id }}" selected>
@@ -42,6 +42,17 @@
                         @error('articulo_nom')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
+                        <div class="row justify-content-between text-left">
+                            <label for="image" class="col-sm-4 col-form-label">
+                                * Imagen
+                            </label>
+                            <img src={{$articulo->image_url}} id="image_preview" class="img-fluid"
+                                style="object-fit: cover; object-position: center;
+        height: 200px; width: 100%;">
+
+                            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image_url"
+                                name="image_url" accept="image/*">
+                        </div>
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Descripcion<span class="text-danger">
@@ -81,7 +92,7 @@
                         @enderror
 
                         <div class="row justify-content-end">
-                            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+                            <button type="submit" class="btn btn-success ml-6 text-center">Editar</button>
                         </div>
                     </form>
                 </div>
@@ -94,3 +105,18 @@
     <link rel="stylesheet" href="{{ asset('css/registrocomercio.css') }}">
 
 @endsection
+@section('js')
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const image = document.getElementById('image_url');
+            image.addEventListener('change', (e) => {
+                const input = e.target;
+                const imagePreview = document.querySelector('#image_preview');
+                if (!input.files.length) return
+                file = input.files[0];
+                objectURL = URL.createObjectURL(file);
+                imagePreview.src = objectURL;
+            });
+        });
+    </script>
+@stop

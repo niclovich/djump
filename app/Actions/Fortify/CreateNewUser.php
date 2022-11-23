@@ -28,21 +28,25 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
+        try {
+            $user= User::create([
+                'name' => $input['name'],
+                //'name'=> 'hola',
+                'email' => $input['email'],
+                'password' => Hash::make($input['password']),
+                'rol' => 'cliente',
+            ])->assignRole('cliente');
+            $testMailData = [
+                'title' => 'Bienvenido ',
+                'body' => 'Gracias por formar parte de Djump, Difruta de nuestro sistema y encuentra el mejor precio $$ ',
+                'user'=>$user
+            ];
+            Mail::to($user->email)->send(new SendMail($testMailData));
+            return $user;
+            } catch (\Throwable $th) {
+            return NULL;
+        }
 
-        $user= User::create([
-            'name' => $input['name'],
-            //'name'=> 'hola',
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-            'rol' => 'cliente',
-        ])->assignRole('cliente');
-        $testMailData = [
-            'title' => 'Bienvenido ',
-            'body' => 'Gracias por registrarse ',
-            'user'=>$user
-        ];
-        //Mail::to($user->email)->send(new SendMail($testMailData));
-        return $user;
 
 
     }

@@ -30,4 +30,8 @@ class Articulo extends Model
     {
         return $this->belongsTo(CategoriaArticulo::class,'categoria_id');
     }
+    public function detallepedidos()
+    {
+        return $this->hasMany(Detallepedido::class);
+    }
 }

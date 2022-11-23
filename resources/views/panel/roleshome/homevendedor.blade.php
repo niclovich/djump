@@ -48,14 +48,14 @@
                         <div class="text">
                             <h3>Sin stock </h3>
                             <p>Articulos En stock minimo</p>
-                            <p>1</p>
+                            <p>0</p>
                         </div>
                     </div>
                 </div>
             </a>
         </div>
         <div class="col">
-            <a href="{{ route('pedidos.index') }}">
+            <a href="{{ route('ventas.index') }}">
                 <div class="card" style="--color: #eb5ae5">
                     <div class="content">
                         <div class="icon">

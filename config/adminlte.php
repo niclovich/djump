@@ -374,7 +374,7 @@ return [
             'can'  => 'manage-blog',
         ],
         ['header' => 'Configuracion de Perfil'],
-        [
+        /*[
             'text' => 'Registrar Comercio',
             'route' => 'comercios.create',
             'icon' => 'fas fa-users', // icono de fontawesome
@@ -389,7 +389,7 @@ return [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
+        ],*/
     ],
 
     /*

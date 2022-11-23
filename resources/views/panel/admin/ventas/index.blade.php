@@ -36,7 +36,7 @@
                                         <td>
                                             @switch($item->estado)
                                                 @case('Entregado')
-                                                    <p class="estadoverde" >Entregado</p>
+                                                    <p class="estadoverde">Entregado</p>
                                                 @break
 
                                                 @case('Empaquetando')
@@ -59,6 +59,14 @@
                                                     class="btn btn-sm btn-primary text-white text-uppercase me-1">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
+                                                <form class="form-card" action="{{ route('pedidos.generate2-pdf', $item) }}"
+                                                    method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="fas fa-file-pdf"></i></button></th>
+                                                </form>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -86,11 +94,11 @@
                                 @foreach ($ventas as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{$item->user->name}}</td>
+                                        <td>{{ $item->user->name }}</td>
                                         <td>
                                             @switch($item->estado)
                                                 @case('Entregado')
-                                                    <p class="estadoverde" >Entregado</p>
+                                                    <p class="estadoverde">Entregado</p>
                                                 @break
 
                                                 @case('Empaquetando')
@@ -115,6 +123,13 @@
                                                     class="btn btn-sm btn-primary text-white text-uppercase me-1">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
+                                                <form class="form-card" action="{{ route('pedidos.generate2-pdf', $item) }}"
+                                                    method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="fas fa-file-pdf"></i></button></th>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

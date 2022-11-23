@@ -115,7 +115,6 @@ class ArticulosController extends Controller
                 'cantidadminima' => 'required',
                 'precioxmayor' => 'required',
                 'precioxmenor' => 'required',
-                'image_url'=>'required'
             ]);
 
             $articulo = Articulo::create([
@@ -185,19 +184,20 @@ class ArticulosController extends Controller
     {
         $request->validate([
             'articulo_nom' => 'required',
-            'categoria_articulo' => 'required',
+            'categoria_id' => 'required',
             'articulo_descripcion' => 'required',
             'stock' => 'required',
             'precioxmayor' => 'required',
             'precioxmenor' => 'required',
         ]);
+
         $articulo->articulo_nom = $request->get('articulo_nom');
-        $articulo->categoria_articulo = $request->get('categoria_articulo');
+        $articulo->categoria_id = $request->get('categoria_id');
         $articulo->articulo_descripcion = $request->get('articulo_descripcion');
         $articulo->stock= $request->get('stock');
         $articulo->precioxmayor= $request->get('precioxmayor');
         $articulo->precioxmenor= $request->get('precioxmenor');
-        $articulo-->save();
+        $articulo->save();
 
 
         return redirect()->route('articulos.index')->with('success_msg', 'Articulo actualizado!' .$articulo->articulo_nom);

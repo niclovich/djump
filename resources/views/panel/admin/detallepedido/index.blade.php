@@ -30,12 +30,12 @@
                         @foreach ($detallepedios as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->articulo_nom }}</td>
+                                <td>{{ $item->articulo->articulo_nom }}</td>
                                 <td>
-                                    @if ($item->cantidad >= $item->cantidadminima)
-                                        {{ $item->precioxmayor }}
+                                    @if ($item->cantidad >= $item->articulo->cantidadminima)
+                                        {{ $item->articulo->precioxmayor }}
                                     @else
-                                        {{ $item->precioxmenor }}
+                                        {{ $item->articulo->precioxmenor }}
                                     @endif
                                 </td>
                                 <td>{{ $item->cantidad }}</td>
